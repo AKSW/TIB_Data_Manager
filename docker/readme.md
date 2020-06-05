@@ -3,7 +3,7 @@
 ## Installation 
 Build ckan_base ckan_base
 ```sh
-$ docker build ./ckan_base -t ckan
+$ docker build ./ckan_base -t ckan_base
 ```
 Build ckan with plugins
 ```sh
