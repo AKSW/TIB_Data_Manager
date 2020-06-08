@@ -60,7 +60,7 @@ RUN ckan-pip install --upgrade urllib3
 RUN ckan-pip install Jinja2==2.8 	
 
 # SetUp CKAN
-# RUN ckan-pip install -e $CKAN_HOME/src/ckan/
+RUN ckan-pip install -e $CKAN_HOME/src/ckan/
 RUN ln -s $CKAN_HOME/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini
 
 # SetUp EntryPoint
