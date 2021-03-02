@@ -29,7 +29,7 @@ services:
        CKAN_DATASTORE_READ: "postgresql://datastore_default:datastore@db:5432/datastore_default"
        CKAN_PUSHER_URL: "http://pusher:8800"
        CKAN_REDIS_URL: "redis://redis:6379/0"
-       CKAN_SITE_URL: "http://vocol.kbs.uni-hannover.de:5000"
+       CKAN_SITE_URL: "http://104.248.241.35:5000"
        CKAN_SOLR_URL: "http://solr:8983/solr/ckan"
        CKAN_SQLALCHEMY_URL: "postgresql://ckan:ckan@db:5432/ckan"
     #volumes:
@@ -53,7 +53,7 @@ services:
     image: easyckan/ckan-datapusher:2.6
   postfix:
     container_name: postfix
-    image: tozd/postfix
+    image: tozd/postfix:ubuntu-trusty
     ports:
       - "25:25"
     environment:

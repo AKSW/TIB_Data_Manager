@@ -9,6 +9,10 @@ RUN ckan-pip install -e $CKAN_HOME/src/ckanext-videoviewer
 ADD ./Plugins/ckanext-TIBtheme $CKAN_HOME/src/ckanext-TIBtheme
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-TIBtheme
 
+ADD ./Plugins/ckanext-harvest $CKAN_HOME/src/ckanext-harvest
+RUN ckan-pip install -e $CKAN_HOME/src/ckanext-harvest
+RUN ckan-pip install -r $CKAN_HOME/src/ckanext-harvest/pip-requirements.txt
+
 ADD ./Plugins/ckanext-dcat $CKAN_HOME/src/ckanext-dcat
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dcat
 RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt

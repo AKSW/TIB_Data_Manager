@@ -31,7 +31,8 @@ write_config () {
      "smtp.server = postfix" \
      "ckan.views.default_views = image_view text_view recline_view videoviewer" \
      "smtp.mail_from = admin@datahub.com" \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer dcat dcat_json_interface TIBtheme" \
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data TIBtheme harvest ckan_harvester" \
+     "ckan.harvest.mq.type = redis \"
      "ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
      "ckan.max_resource_size = 104857600"
 }

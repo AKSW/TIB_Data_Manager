@@ -25,6 +25,7 @@ RUN git clone --branch $CKAN_VERSION --depth 1 https://github.com/ckan/ckan.git 
 
 # SetUp Requirements
 # ADD ./ckan/requirements.txt $CKAN_HOME/src/ckan/requirements.txt
+RUN ckan-pip install -U pip==20.3
 RUN ckan-pip install --upgrade -r $CKAN_HOME/src/ckan/requirements.txt
 
 RUN apt-get install -y build-essential libssl-dev libffi-dev python-dev
@@ -37,7 +38,8 @@ RUN ckan-pip install --upgrade -r $CKAN_HOME/src/ckan/dev-requirements.txt
 RUN ckan-pip install --upgrade urllib3
 
 # BUGFIX TRUNCATE
-RUN ckan-pip install Jinja2==2.8 	
+RUN ckan-pip install Jinja2==2.8
+RUN ckan-pip install setuptools==20.4
 
 # SetUp CKAN
 RUN ckan-pip install -e $CKAN_HOME/src/ckan/
