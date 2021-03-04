@@ -1,3 +1,6 @@
 [submodule "Plugins/ckanext-harvest"]
 	path = Plugins/ckanext-harvest
 	url = git@github.com:ckan/ckanext-harvest.git
+[submodule "Plugins/ckanext-dcat"]
+	path = Plugins/ckanext-dcat
+	url = git@github.com:ckan/ckanext-dcat.git
