@@ -22,7 +22,7 @@ $ docker build ./postgresql-loaded/ -t postgresql-loaded
 CKAN is expecting to connect directly to the database. In the case of the preloaded image this is not possible since postgresql needs to execute *.sql scripts, so it is recommended to first run the database, and when the databases are ready, start ckan.
 
 ```sh
-$ docker-compose up -d pusher redis solr db
+$ docker-compose up -d pusher redis solr postgresql
 $ docker-compose up ckan
 ```
 

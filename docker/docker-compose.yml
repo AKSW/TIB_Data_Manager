@@ -4,57 +4,63 @@
 # started up quickly enough. Just do "docker-compose up ckan"
 # again to retry
 
-version: '2'
+version: '3.8'
 services:
   ckan:
-    container_name: ckan
     image: ckan
     build: ../.
-    depends_on:
-      - db
-      - solr
-      - redis
-      - pusher
-      - postfix
-    links:
-       - db
-       - solr
-       - redis
-       - pusher
-       - postfix
+    networks:
+        - sub
+        - db
     ports:
-       - "5000:5000"
+       - "80:5000"
     environment:
-       CKAN_DATASTORE_WRITE: "postgresql://ckan:ckan@db:5432/datastore_default"
-       CKAN_DATASTORE_READ: "postgresql://datastore_default:datastore@db:5432/datastore_default"
+       CKAN_DATASTORE_WRITE: "postgresql://ckan:ckan@postgresql:5432/datastore_default"
+       CKAN_DATASTORE_READ: "postgresql://datastore_default:datastore@postgresql:5432/datastore_default"
        CKAN_PUSHER_URL: "http://pusher:8800"
        CKAN_REDIS_URL: "redis://redis:6379/0"
-       CKAN_SITE_URL: "http://localhost:5000"
+       CKAN_SITE_URL: "http://localhost:80"
        CKAN_SOLR_URL: "http://solr:8983/solr/ckan"
-       CKAN_SQLALCHEMY_URL: "postgresql://ckan:ckan@db:5432/ckan"
+       CKAN_SQLALCHEMY_URL: "postgresql://ckan:ckan@postgresql:5432/ckan"
     #volumes:
        # - ./ckan-entrypoint.sh:/ckan-entrypoint.sh 
        #- ../Plugins/ckanext-TIBtheme:/usr/lib/ckan/default/src/ckanext-TIBtheme
        # - ../Plugins/ckanext-SPARQLWrapper:/usr/lib/ckan/default/src/ckanext-SPARQLWrapper
        # - ../Plugins/ckanext-videoviewer:/usr/lib/ckan/default/src/ckanext-videoviewer
-  db:
+  postgresql:
     build: ./postgresql-loaded/
-    container_name: db
     image: postgresql:loaded
+    networks:
+        - db
+    expose:
+        - "5432"
   solr:
     build: ./solr/
-    container_name: solr
     image: fhg/solr
+    networks:
+        - db
+    expose:
+        - "8983"
   redis:
-    container_name: redis
     image: redis
+    networks:
+        - db
+    expose:
+        - "6379"
   pusher:
-    container_name: pusher
     image: easyckan/ckan-datapusher:2.6
+    networks:
+        - db
+    expose:
+        - "8800"
   postfix:
-    container_name: postfix
     image: tozd/postfix:ubuntu-trusty
-    ports:
-      - "25:25"
-    environment:
-       MY_NETWORKS: "172.18.0.0/16 127.0.0.0/8"
+    expose:
+      - "25"
+    networks:
+      - sub
+      - db
+      
+networks:
+    db: 
+    sub: 
