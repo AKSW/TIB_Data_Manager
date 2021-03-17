@@ -16,7 +16,7 @@ set_environment () {
 write_config () {
   ckan-paster make-config --no-interactive ckan "$CONFIG"
 
-  ckan-paster --plugin=ckan config-tool "$CONFIG" -s DEFAULT -e "debug = false"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s DEFAULT -e "debug = true"
   # The variables above will be used by CKAN, but
   # in case want to use the config from ckan.ini use this
   ckan-paster --plugin=ckan config-tool "$CONFIG" -e \
@@ -52,8 +52,13 @@ if [ ! -e "$CONFIG" ]; then
   
   # Enable Plugins: harvest and dcat
   ckan-paster --plugin=ckan config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data TIBtheme"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data TIBtheme dataretrieval"
   ckan-paster --plugin=ckanext-harvest harvester initdb --config=$CKAN_CONFIG/ckan.ini
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.port = 6379"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.redis_db = 0"
+  #ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.password = "
 
   # Rebuild index 
   ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
