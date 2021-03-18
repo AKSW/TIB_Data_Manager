@@ -17,5 +17,10 @@ ADD ./Plugins/ckanext-dcat $CKAN_HOME/src/ckanext-dcat
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dcat
 RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
 
+#DEBUG
+ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
+RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
+RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
+
 COPY ./docker/ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh

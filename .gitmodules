@@ -4,3 +4,7 @@
 [submodule "Plugins/ckanext-dcat"]
 	path = Plugins/ckanext-dcat
 	url = https://github.com/AKSW/ckanext-dcat.git
+	
+[submodule "Plugins/ckanext-dataretrieval"]
+	path = Plugins/ckanext-dataretrieval
+	url = https://github.com/stream-project/ckanext-dataretrieval.git
