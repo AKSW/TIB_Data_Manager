@@ -31,7 +31,7 @@ write_config () {
      "smtp.server = postfix" \
      "ckan.views.default_views = image_view text_view recline_view videoviewer" \
      "smtp.mail_from = admin@datahub.com" \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer TIBtheme" \
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer STREAMtheme" \
      "ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
      "ckan.max_resource_size = 104857600"
 }
@@ -52,7 +52,7 @@ if [ ! -e "$CONFIG" ]; then
   
   # Enable Plugins: harvest and dcat
   ckan-paster --plugin=ckan config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data TIBtheme dataretrieval"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval"
   ckan-paster --plugin=ckanext-harvest harvester initdb --config=$CKAN_CONFIG/ckan.ini
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"

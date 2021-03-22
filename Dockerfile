@@ -6,8 +6,8 @@ MAINTAINER Gabriel Gimenez @ Fraunhofer
 ADD ./Plugins/ckanext-videoviewer $CKAN_HOME/src/ckanext-videoviewer
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-videoviewer
 
-ADD ./Plugins/ckanext-TIBtheme $CKAN_HOME/src/ckanext-TIBtheme
-RUN ckan-pip install -e $CKAN_HOME/src/ckanext-TIBtheme
+ADD ./Plugins/ckanext-streamtheme $CKAN_HOME/src/ckanext-streamtheme
+RUN ckan-pip install -e $CKAN_HOME/src/ckanext-streamtheme
 
 ADD ./Plugins/ckanext-harvest $CKAN_HOME/src/ckanext-harvest
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-harvest

@@ -8,3 +8,6 @@
 [submodule "Plugins/ckanext-dataretrieval"]
 	path = Plugins/ckanext-dataretrieval
 	url = https://github.com/stream-project/ckanext-dataretrieval.git
+[submodule "Plugins/ckanext-streamtheme"]
+	path = Plugins/ckanext-streamtheme
+	url = https://github.com/AKSW/ckanext-streamtheme.git
