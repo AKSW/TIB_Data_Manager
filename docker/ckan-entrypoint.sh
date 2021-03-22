@@ -63,6 +63,9 @@ if [ ! -e "$CONFIG" ]; then
   # Rebuild index 
   ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
 
+  # Configure harvester
+  ckan-paster --plugin=ckanext-harvest harvester source nomad https://nomad-lab.eu/prod/rae/dcat/catalog/ dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
+  #ckan-paster --plugin=ckanext-harvest harvester source dsms https://dsms.eu/prod/rae/dcat/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
 fi
 
 echo "Ready"
