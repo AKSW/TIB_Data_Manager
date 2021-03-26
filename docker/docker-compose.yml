@@ -19,7 +19,7 @@ services:
        CKAN_DATASTORE_READ: "postgresql://datastore_default:datastore@postgresql:5432/datastore_default"
        CKAN_PUSHER_URL: "http://pusher:8800"
        CKAN_REDIS_URL: "redis://redis:6379/0"
-       CKAN_SITE_URL: "http://localhost:80"
+       CKAN_SITE_URL: "http://${LOCAL_ADDRESS}:80"
        CKAN_SOLR_URL: "http://solr:8983/solr/ckan"
        CKAN_SQLALCHEMY_URL: "postgresql://ckan:ckan@postgresql:5432/ckan"
     #volumes:
@@ -60,7 +60,30 @@ services:
     networks:
       - sub
       - db
+  dataretrieval:
+      image: docker.pkg.github.com/aksw/service-dataretrieval/dataretrieval:main
+      expose:
+          - "8080"
+      ports:
+          - "8080:8080"
+      environment:
+          - SPARQL_URL=http://virtuoso:8890/sparql
+          - SPARQL_USERNAME=${VIRTUOSO_USER}
+          - SPARQL_PASSWORD=${VIRTUOSO_PASSWORD}
+          - SPARQL_PORT=8890
+      networks:
+          - sparql
+  virtuoso:
+    image: openlink/virtuoso-opensource-7
+    expose:
+        - "8890"
+    environment:
+        - DBA_PASSWORD=${VIRTUOSO_PASSWORD}
+    networks:
+        - sparql
+        - sub
       
 networks:
     db: 
     sub: 
+    sparql: 
