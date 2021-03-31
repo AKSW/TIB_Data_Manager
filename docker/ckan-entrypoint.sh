@@ -60,12 +60,16 @@ if [ ! -e "$CONFIG" ]; then
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.redis_db = 0"
   #ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.password = "
 
-  # Rebuild index 
+  # Rebuild index - should be removed for production
   ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
 
-  # Configure harvester
-  ckan-paster --plugin=ckanext-harvest harvester source nomad https://nomad-lab.eu/prod/rae/dcat/catalog/ dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
-  #ckan-paster --plugin=ckanext-harvest harvester source dsms https://dsms.eu/prod/rae/dcat/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
+  # Configure harvester - first check if already there
+  lines=`ckan-paster --plugin=ckanext-harvest harvester sources -c $CKAN_CONFIG/ckan.ini | grep nomad-lab.eu | wc -l`
+  lines=$(($lines + 1))
+  if [ $lines -lt 2 ]; then
+      ckan-paster --plugin=ckanext-harvest harvester source nomad https://nomad-lab.eu/prod/rae/dcat/catalog/ dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
+      #ckan-paster --plugin=ckanext-harvest harvester source dsms https://dsms.eu/prod/rae/dcat/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
+  fi
 fi
 
 echo "Ready"
