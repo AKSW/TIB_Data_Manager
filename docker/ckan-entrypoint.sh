@@ -72,6 +72,10 @@ if [ ! -e "$CONFIG" ]; then
   fi
 fi
 
+#Start services for harvesting
+service supervisor start && supervisorctl reread
+cron
+
 echo "Ready"
 
 exec "$@"
