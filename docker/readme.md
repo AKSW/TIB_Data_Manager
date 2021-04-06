@@ -16,20 +16,20 @@ $ docker build ./postgresql-loaded/ -t postgresql-loaded
 ```
 ## Docker-compose Docker
 * docker-compose is configured by default to work with postgresql:loaded  docker-compose.yml，postgresql:loaded image postgresql,
-* CKAN_SITE_URL needs to be set to the correct ip/domain docker-compose.yml，“ CKAN_SITE_URL” ip
+* BASE_DOMAIN needs to be set to the correct domain, which is used by ckan and a sparql.BASE_DOMAIN subdomain is then used for virtusoso
 
 ## First execution
 CKAN is expecting to connect directly to the database. In the case of the preloaded image this is not possible since postgresql needs to execute *.sql scripts, so it is recommended to first run the database, and when the databases are ready, start ckan.
 
 ```sh
-$ docker-compose up -d pusher redis solr postgresql
+$ docker-compose up -d pusher redis solr postfix postgresql dataretrieval virtuoso
 $ docker-compose up ckan
 ```
 
 ## Run
 Execute the docker-compose file.
 ```sh
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 ## Default credentials
@@ -37,6 +37,8 @@ $ docker-compose up
 ckan = admin:admin
 db = ckan:ckan
 ```
+
+The base domain and the virtuoso credentials are set via the .env file, see .env.template file.
 
 ## Useful Commands
 ### [CKAN] Create user or admin account 

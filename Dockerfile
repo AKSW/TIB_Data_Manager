@@ -28,7 +28,7 @@ RUN mkdir -p /var/log/ckan/std/
 COPY docker/ckan_harvesting.conf /etc/supervisor/conf.d/ckan_harvesting.conf
 
 #Install cron
-RUN apt-get install -y cron
+RUN apt-get install -y cron && apt-get -q clean
 COPY ./docker/cronfile /etc/cron.d/cronfile
 # Give execution rights on the cron job
 RUN chmod 0744 /etc/cron.d/cronfile
