@@ -64,12 +64,16 @@ services:
       expose:
           - "8080"
       environment:
-          - SPARQL_URL=http://virtuoso:8890/sparql
-          - SPARQL_USERNAME=${VIRTUOSO_USER}
-          - SPARQL_PASSWORD=${VIRTUOSO_PASSWORD}
-          - SPARQL_PORT=8890
+          SPARQL_URL: "http://virtuoso:8890/sparql"
+          SPARQL_USERNAME: "${VIRTUOSO_USER}"
+          SPARQL_PASSWORD: "${VIRTUOSO_PASSWORD}"
+          SPARQL_PORT: "8890"
+          VIRTUAL_HOST: "dataretrieval.${BASE_DOMAIN}"
+          VIRTUAL_PORT: "8080"
+          LETSENCRYPT_HOST: "dataretrieval.${BASE_DOMAIN}"
       networks:
           - sparql
+          - sub
   virtuoso:
     image: openlink/virtuoso-opensource-7
     expose:
