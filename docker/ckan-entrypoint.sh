@@ -61,7 +61,7 @@ if [ ! -e "$CONFIG" ]; then
   #ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.password = "
 
   # Rebuild index - should be removed for production
-  ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
+  #ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
 
   # Configure harvester - first check if already there
   lines=`ckan-paster --plugin=ckanext-harvest harvester sources -c $CKAN_CONFIG/ckan.ini | grep nomad-lab.eu | wc -l`
