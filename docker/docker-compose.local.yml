@@ -61,7 +61,7 @@ services:
       - sub
       - db
   dataretrieval:
-      image: docker.pkg.github.com/aksw/service-dataretrieval/dataretrieval:main
+      image: kurt/dataretrieval:local
       expose:
           - "8080"
       ports:
@@ -75,10 +75,13 @@ services:
           - sparql
   virtuoso:
     image: openlink/virtuoso-opensource-7
-    expose:
-        - "8890"
+    ports:
+        - "1111:1111"
+        - "8890:8890"
     environment:
         - DBA_PASSWORD=${VIRTUOSO_PASSWORD}
+        - SPARQL_UPDATE=true
+        - VIRT_Parameters_DirsAllowed=., /usr/local/virtuoso-opensource/share/virtuoso/vad, /virtuoso/data
     networks:
         - sparql
         - sub
