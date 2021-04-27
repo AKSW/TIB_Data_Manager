@@ -75,11 +75,12 @@ services:
           - sparql
           - sub
   virtuoso:
-    image: openlink/virtuoso-opensource-7
+    image: docker.pkg.github.com/aksw/docker-virtuoso/docker-virtuoso:latest
     expose:
         - "8890"
     environment:
         DBA_PASSWORD: "${VIRTUOSO_PASSWORD}"
+        SPARQL_UPDATE: "true"
         VIRTUAL_HOST: "sparql.${BASE_DOMAIN}"
         VIRTUAL_PORT: "8890"
         LETSENCRYPT_HOST: "sparql.${BASE_DOMAIN}"

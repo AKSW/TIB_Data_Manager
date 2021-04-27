@@ -68,7 +68,7 @@ if [ ! -e "$CONFIG" ]; then
   lines=$(($lines + 1))
   if [ $lines -lt 2 ]; then
       ckan-paster --plugin=ckanext-harvest harvester source nomad https://nomad-lab.eu/prod/rae/dcat/catalog/ dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
-      #ckan-paster --plugin=ckanext-harvest harvester source dsms https://dsms.eu/prod/rae/dcat/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}' --config=/etc/ckan/default/ckan.ini
+      #ckan-paster --plugin=ckanext-harvest harvester source dsms http://dsms.stream-dataspace.net/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"text/turtle"}' --config=/etc/ckan/default/ckan.ini
   fi
 fi
 
