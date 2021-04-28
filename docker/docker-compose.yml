@@ -81,6 +81,7 @@ services:
     environment:
         DBA_PASSWORD: "${VIRTUOSO_PASSWORD}"
         SPARQL_UPDATE: "true"
+        VIRT_Parameters_DirsAllowed: "., /usr/local/virtuoso-opensource/share/virtuoso/vad, /virtuoso/data"
         VIRTUAL_HOST: "sparql.${BASE_DOMAIN}"
         VIRTUAL_PORT: "8890"
         LETSENCRYPT_HOST: "sparql.${BASE_DOMAIN}"
