@@ -87,6 +87,25 @@ services:
     networks:
         - sparql
         - sub
+    volumes:
+        - files:/virtuoso/data
+  import_matvoc:
+    build: ./virtuoso-import-docker/
+    command: /virtuoso/envsetter.sh # Use whatever script you need here
+    environment:
+        DBA_PASSWORD: ${VIRTUOSO_PASSWORD}
+        VIRTUOSO_DATA_DIR: /virtuoso/data
+        GIT_REPO: ${GIT_REPO}
+        GRAPH_URI: ${GRAPH_URI}
+        GIT_EMAIL: ${GIT_EMAIL}
+        GIT_NAME: ${GIT_NAME}
+        CRON_JOB: ${CRON_JOB} #update or import
+    volumes:
+        - files:/virtuoso/data
+        - ./virtuoso-import-docker/id_rsa:/root/.ssh/id_rsa
+        - ./virtuoso-import-docker/config:/root/.ssh/config
+    networks:
+        - sparql
       
 networks:
     db: 
@@ -94,3 +113,6 @@ networks:
     sub: 
        external:
           name: stream_sub
+              
+volumes:
+  files: {}

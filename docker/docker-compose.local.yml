@@ -75,9 +75,9 @@ services:
           - sparql
   virtuoso:
     image: docker.pkg.github.com/aksw/docker-virtuoso/docker-virtuoso:latest
-    expose:
-        - "1111"
-        - "8890"
+    ports:
+        - "1111:1111"
+        - "8890:8890"
     environment:
         - DBA_PASSWORD=${VIRTUOSO_PASSWORD}
         - SPARQL_UPDATE=true
@@ -85,8 +85,30 @@ services:
     networks:
         - sparql
         - sub
+    volumes:
+        - files:/virtuoso/data
+  importer:
+    build: /Users/kurt/Documents/virtuoso-import-docker/
+    command: /virtuoso/envsetter.sh # Use whatever script you need here
+    environment:
+        DBA_PASSWORD: ${VIRTUOSO_PASSWORD}
+        VIRTUOSO_DATA_DIR: /virtuoso/data
+        GIT_REPO: ${GIT_REPO}
+        GRAPH_URI: ${GRAPH_URI}
+        GIT_EMAIL: ${GIT_EMAIL}
+        GIT_NAME: ${GIT_NAME}
+        CRON_JOB: ${CRON_JOB} #update or import
+    volumes:
+        - files:/virtuoso/data
+        - /Users/kurt/Documents/virtuoso-import-docker/id_rsa:/root/.ssh/id_rsa
+        - /Users/kurt/Documents/virtuoso-import-docker/config:/root/.ssh/config
+    networks:
+        - sparql
       
 networks:
     db: 
     sub: 
     sparql: 
+        
+volumes:
+    files: {}

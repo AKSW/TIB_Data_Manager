@@ -11,3 +11,6 @@
 [submodule "Plugins/ckanext-streamtheme"]
 	path = Plugins/ckanext-streamtheme
 	url = https://github.com/AKSW/ckanext-streamtheme.git
+[submodule "docker/virtuoso-import-docker"]
+	path = docker/virtuoso-import-docker
+	url = https://github.com/Dockerizing/virtuoso-import-docker.git
