@@ -81,7 +81,7 @@ services:
     environment:
         DBA_PASSWORD: "${VIRTUOSO_PASSWORD}"
         SPARQL_UPDATE: "true"
-        VIRT_Parameters_DirsAllowed: "., /usr/local/virtuoso-opensource/share/virtuoso/vad, /virtuoso/data"
+        VIRT_Parameters_DirsAllowed: "., /usr/local/virtuoso-opensource/share/virtuoso/vad, /virtuoso/data, /virtuoso/metadataimport"
         VIRTUAL_HOST: "sparql.${BASE_DOMAIN}"
         VIRTUAL_PORT: "8890"
         LETSENCRYPT_HOST: "sparql.${BASE_DOMAIN}"
@@ -90,6 +90,7 @@ services:
         - sub
     volumes:
         - files:/virtuoso/data
+        - files2:/virtuoso/metadataimport
   import_matvoc:
     build: ./virtuoso-import-docker/
     command: /virtuoso/envsetter.sh # Use whatever script you need here
@@ -107,6 +108,18 @@ services:
         - ./virtuoso-import-docker/config:/root/.ssh/config
     networks:
         - sparql
+  metadataimporter:
+    build: ./store_metadata/
+    environment:
+        VIRTUOSO_PASSWORD: ${VIRTUOSO_PASSWORD}
+        VIRTUOSO_HOST: virtuoso
+        VIRTUOSO_PORT: 1111
+        VIRTUOSO_USER: dba
+        GRAPH: http://example.de
+    volumes:
+        - files2:/virtuoso/metadataimport
+    networks:
+        - sparql
       
 networks:
     db: 
@@ -117,3 +130,4 @@ networks:
               
 volumes:
   files: {}
+  files2: {}
