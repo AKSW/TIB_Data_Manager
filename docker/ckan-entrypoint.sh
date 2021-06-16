@@ -31,7 +31,7 @@ write_config () {
      "smtp.server = postfix" \
      "ckan.views.default_views = image_view text_view recline_view videoviewer" \
      "smtp.mail_from = admin@datahub.com" \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer STREAMtheme" \
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer STREAMtheme discovery similar_datasets search_suggestions tag_cloud" \
      "ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
      "ckan.max_resource_size = 104857600"
 }
@@ -52,13 +52,21 @@ if [ ! -e "$CONFIG" ]; then
   
   # Enable Plugins: harvest and dcat
   ckan-paster --plugin=ckan config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval discovery similar_datasets search_suggestions tag_cloud"
   ckan-paster --plugin=ckanext-harvest harvester initdb --config=$CKAN_CONFIG/ckan.ini
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.port = 6379"
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.redis_db = 0"
   #ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.password = "
+  
+  # Discovery extension
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckanext.discovery.similar_datasets.max_num = 5"
+  # should be removed for production
+  ckan-paster --plugin=ckanext-discovery search_suggestions init --config=$CKAN_CONFIG/ckan.ini
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckanext.discovery.search_suggestions.limit = 4"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckanext.discovery.search_suggestions.store_queries = True"
+  ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckanext.discovery.search_suggestions.provide_suggestions = True"
 
   # Rebuild index - should be removed for production
   #ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini

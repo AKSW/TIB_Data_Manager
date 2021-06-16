@@ -14,3 +14,6 @@
 [submodule "docker/virtuoso-import-docker"]
 	path = docker/virtuoso-import-docker
 	url = https://github.com/Dockerizing/virtuoso-import-docker.git
+[submodule "Plugins/ckanext-discovery"]
+	path = Plugins/ckanext-discovery
+	url = https://github.com/stadt-karlsruhe/ckanext-discovery.git
