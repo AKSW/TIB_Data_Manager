@@ -69,6 +69,8 @@ fi
 # Give some more seconds to the virtuoso to really accept updates
 sleep 3
 
+# TODO: Drop graph!
+
 echo "[INFO] initializing named graph"
 run_virtuoso_cmd "sparql CREATE SILENT GRAPH <${GRAPH}>;"
 echo "Created graph: $GRAPH"
