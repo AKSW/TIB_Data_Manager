@@ -27,6 +27,8 @@ services:
        #- ../Plugins/ckanext-TIBtheme:/usr/lib/ckan/default/src/ckanext-TIBtheme
        # - ../Plugins/ckanext-SPARQLWrapper:/usr/lib/ckan/default/src/ckanext-SPARQLWrapper
        # - ../Plugins/ckanext-videoviewer:/usr/lib/ckan/default/src/ckanext-videoviewer
+    depends_on:
+        - postgresql
   postgresql:
     build: ./postgresql-loaded/
     image: postgresql:loaded

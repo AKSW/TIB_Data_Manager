@@ -26,6 +26,8 @@ services:
        VIRTUAL_HOST: "${BASE_DOMAIN}"
        VIRTUAL_PORT: "5000"
        LETSENCRYPT_HOST: "${BASE_DOMAIN}"
+    depends_on:
+        - postgresql
   postgresql:
     build: ./postgresql-loaded/
     image: postgresql:loaded
