@@ -52,7 +52,7 @@ if [ ! -e "$CONFIG" ]; then
   
   # Enable Plugins: harvest and dcat
   ckan-paster --plugin=ckan config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval discovery similar_datasets search_suggestions tag_cloud"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view videoviewer harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval qualityreports discovery similar_datasets search_suggestions tag_cloud"
   ckan-paster --plugin=ckanext-harvest harvester initdb --config=$CKAN_CONFIG/ckan.ini
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
   ckan-paster --plugin=ckan config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"

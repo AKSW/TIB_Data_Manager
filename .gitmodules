@@ -17,3 +17,6 @@
 [submodule "Plugins/ckanext-discovery"]
 	path = Plugins/ckanext-discovery
 	url = https://github.com/stadt-karlsruhe/ckanext-discovery.git
+[submodule "Plugins/ckanext-qualityreports"]
+	path = Plugins/ckanext-qualityreports
+	url = https://github.com/stream-project/ckanext-qualityreports.git
