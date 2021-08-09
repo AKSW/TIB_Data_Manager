@@ -119,6 +119,28 @@ services:
         - files2:/virtuoso/metadataimport
     networks:
         - sparql
+        
+  rdfunit:
+    build: ~/Documents/STREAM/2.2/data_validation_with_shacl/RDFUnit/
+    ports:
+       - "81:80"
+    volumes:
+        - ~/Documents/STREAM/2.2/data_validation_with_shacl/Jekyll-RDF/my_page2:/var/www/html/reports/
+    environment:
+        SPARQL_ENDPOINT: "https://sparql.stream-dataspace.net/sparql"
+        SPARQL_GRAPH_DATA: "http://test.de/"
+        SPARQL_GRAPH_SHAPES: "http://test.de/shapes/"
+    networks:
+        - sparql
+        - sub
+  jekyllrdf:
+     build: ~/Documents/STREAM/2.2/data_validation_with_shacl/Jekyll-RDF/
+     ports:
+        - "82:4000"
+     volumes:
+         - ~/Documents/STREAM/2.2/data_validation_with_shacl/Jekyll-RDF/my_page2:/srv/jekyll/my_page
+     networks:
+         - sub
       
       
 networks:

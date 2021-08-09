@@ -20,3 +20,6 @@
 [submodule "Plugins/ckanext-qualityreports"]
 	path = Plugins/ckanext-qualityreports
 	url = https://github.com/stream-project/ckanext-qualityreports.git
+[submodule "docker/data_validation_with_shacl"]
+	path = docker/data_validation_with_shacl
+	url = https://github.com/stream-project/data_validation_with_shacl.git
