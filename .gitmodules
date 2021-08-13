@@ -3,14 +3,14 @@
 	url = https://github.com/ckan/ckanext-harvest.git
 [submodule "Plugins/ckanext-dcat"]
 	path = Plugins/ckanext-dcat
-	url = https://github.com/AKSW/ckanext-dcat.git
+	url = https://github.com/stream-project/ckanext-dcat.git
 	
 [submodule "Plugins/ckanext-dataretrieval"]
 	path = Plugins/ckanext-dataretrieval
 	url = https://github.com/stream-project/ckanext-dataretrieval.git
 [submodule "Plugins/ckanext-streamtheme"]
 	path = Plugins/ckanext-streamtheme
-	url = https://github.com/AKSW/ckanext-streamtheme.git
+	url = https://github.com/stream-project/ckanext-streamtheme.git
 [submodule "docker/virtuoso-import-docker"]
 	path = docker/virtuoso-import-docker
 	url = https://github.com/Dockerizing/virtuoso-import-docker.git
