@@ -122,7 +122,7 @@ services:
         - files2:/virtuoso/metadataimport
     networks:
         - sparql
-        
+
   rdfunit:
     build: ./data_validation_with_shacl/RDFUnit/
     expose:
@@ -130,7 +130,7 @@ services:
     volumes:
         - ./data_validation_with_shacl/Jekyll-RDF/my_page2:/var/www/html/reports/
     environment:
-        SPARQL_ENDPOINT: "http://virtuoso/sparql"
+        SPARQL_ENDPOINT: "https://sparql.${BASE_DOMAIN}/sparql"
         SPARQL_GRAPH_DATA: "http://test.de/"
         SPARQL_GRAPH_SHAPES: "http://test.de/shapes/"
         VIRTUAL_HOST: "webhook.${BASE_DOMAIN}"
@@ -150,14 +150,14 @@ services:
          LETSENCRYPT_HOST: "reports.${BASE_DOMAIN}"
      networks:
          - sub
-      
+
 networks:
-    db: 
-    sparql: 
-    sub: 
+    db:
+    sparql:
+    sub:
        external:
           name: stream_sub
-              
+
 volumes:
   files: {}
   files2: {}
