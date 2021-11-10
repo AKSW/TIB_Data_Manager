@@ -3,17 +3,17 @@
 The whole CKAN deployment is using docker and docker-compose.
 The idea is to clone this repository, set server specifics via the .env file and then run `docker-compose up -d`.
 
-## Manual container building 
+## Manual container building
 These steps are only necessary when the corresponding code was changed.
 Build ckan_base ckan_base
 ```sh
-$ docker build ./ckan_base -t ckan
+$ docker build ./ckan_base -t ckan_base
 ```
 Build ckan with plugins
 ```sh
 $ docker build ../. -t ckan
 ```
-Build postgresql or postgresql:loaded 
+Build postgresql or postgresql:loaded
 ```sh
 $ docker build ./postgresql/ -t postgresql
 $ docker build ./postgresql-loaded/ -t postgresql-loaded
@@ -52,7 +52,7 @@ db = ckan:ckan
 ```
 
 ## Useful Commands
-### [CKAN] Create user or admin account 
+### [CKAN] Create user or admin account
 User accounts and admin accounts can be created with paster command.
 
 ```sh
@@ -72,4 +72,14 @@ Rebuild the index to make search engine match the current dataset.
 
 ```sh
 $ ckan-paster --plugin=ckan search-index rebuild -c $CKAN_CONFIG/ckan.ini
+```
+
+# Issues
+
+SSL error
+development fix:
+```
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 ```

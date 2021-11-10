@@ -91,7 +91,7 @@ services:
         - files:/virtuoso/data
         - files2:/virtuoso/metadataimport
   importer:
-    build: /Users/kurt/Documents/virtuoso-import-docker/
+    build: /home/kjunghanns/Documents/virtuoso-import-docker/
     command: /virtuoso/envsetter.sh # Use whatever script you need here
     environment:
         DBA_PASSWORD: ${VIRTUOSO_PASSWORD}
@@ -103,8 +103,8 @@ services:
         CRON_JOB: ${CRON_JOB} #update or import
     volumes:
         - files:/virtuoso/data
-        - /Users/kurt/Documents/virtuoso-import-docker/id_rsa:/root/.ssh/id_rsa
-        - /Users/kurt/Documents/virtuoso-import-docker/config:/root/.ssh/config
+        - /home/kjunghanns/Documents/virtuoso-import-docker/id_rsa:/root/.ssh/id_rsa
+        - /home/kjunghanns/Documents/virtuoso-import-docker/config:/root/.ssh/config
     networks:
         - sparql
   metadataimporter:
