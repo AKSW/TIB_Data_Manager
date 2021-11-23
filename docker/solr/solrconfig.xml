@@ -288,7 +288,9 @@
 
 	</searchComponent>
 
-	<schemaFactory class="ClassicIndexSchemaFactory" />
+	<schemaFactory class="ManagedIndexSchemaFactory">
+		<bool name="mutable">true</bool>
+	</schemaFactory>
 
 	<updateRequestProcessorChain name="add-unknown-fields-to-the-schema">
 		<processor class="solr.UUIDUpdateProcessorFactory" />
@@ -339,13 +341,13 @@
 	<queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
 		<int name="xsltCacheLifetimeSeconds">5</int>
 	</queryResponseWriter>
-    
-    <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
-        <lst name="defaults">
-            <int name="mlt.mintf">3</int>
-            <int name="mlt.mindf">1</int>
-            <int name="mlt.minwl">3</int>
-        </lst>
-    </requestHandler>
+
+  <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
+      <lst name="defaults">
+          <int name="mlt.mintf">3</int>
+          <int name="mlt.mindf">1</int>
+          <int name="mlt.minwl">3</int>
+      </lst>
+  </requestHandler>
 
 </config>
