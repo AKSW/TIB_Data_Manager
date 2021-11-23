@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:buster
 MAINTAINER Gabriel Gimenez @ Fraunhofer
 
 RUN apt-get -q -y update && apt-get -q -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -q -y install \
@@ -12,7 +12,7 @@ RUN apt-get -q -y update && apt-get -q -y upgrade && DEBIAN_FRONTEND=noninteract
 ENV CKAN_HOME /usr/lib/ckan/default
 ENV CKAN_CONFIG /etc/ckan/default
 ENV CKAN_STORAGE_PATH /var/lib/ckan
-ENV CKAN_VERSION ckan-2.7.0
+ENV CKAN_VERSION 2.7
 
 # SetUp Virtual Environment CKAN
 RUN mkdir -p $CKAN_HOME $CKAN_CONFIG $CKAN_STORAGE_PATH
@@ -21,11 +21,11 @@ RUN ln -s $CKAN_HOME/bin/pip /usr/local/bin/ckan-pip
 RUN ln -s $CKAN_HOME/bin/paster /usr/local/bin/ckan-paster
 
 # Dowload CKAN Version
-RUN git clone --branch $CKAN_VERSION --depth 1 https://github.com/ckan/ckan.git $CKAN_HOME/src/ckan
+RUN git clone --branch $CKAN_VERSION  --depth 1 https://github.com/TBoonX/ckan.git $CKAN_HOME/src/ckan
 
 # SetUp Requirements
 # ADD ./ckan/requirements.txt $CKAN_HOME/src/ckan/requirements.txt
-RUN ckan-pip install -U pip==20.3
+RUN ckan-pip install -U pip==20.3.4
 RUN ckan-pip install --upgrade -r $CKAN_HOME/src/ckan/requirements.txt
 
 RUN apt-get install -y build-essential libssl-dev libffi-dev python-dev
@@ -55,4 +55,3 @@ VOLUME ["/etc/ckan/default"]
 VOLUME ["/var/lib/ckan"]
 EXPOSE 500
 CMD ["ckan-paster","serve","--reload","/etc/ckan/default/ckan.ini"]
-
