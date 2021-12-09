@@ -30,9 +30,10 @@ RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
 ADD ./Plugins/ckanext-streamtheme $CKAN_HOME/src/ckanext-streamtheme
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-streamtheme
 
-ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
-RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
-RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
+# dataretrieval not needed at the moment
+#ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
+#RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
+#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
 
 ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports

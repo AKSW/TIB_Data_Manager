@@ -79,7 +79,7 @@ if [ ! -e "$CONFIG" ]; then
 
   # Enable Plugins: harvest and dcat
   ckan -c "$CONFIG" config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view   harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval qualityreports tags"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view   harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme qualityreports tags"
   ckan -c "$CONFIG" harvester initdb
   ckan -c "$CONFIG" config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
   ckan -c "$CONFIG" config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"
@@ -92,12 +92,12 @@ if [ ! -e "$CONFIG" ]; then
 
   # Configure harvester - first check if already there
   ckan -c "$CONFIG" harvester sources
-  #lines=`ckan -c "$CONFIG" harvester sources | grep nomad-lab.eu | wc -l`
-  #lines=$(($lines + 1))
-  #if [ $lines -lt 2 ]; then
-  #    ckan -c "$CONFIG" harvester source "nomad" "https://nomad-lab.eu/prod/rae/dcat/catalog/" dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}'
-      #ckan -c "$CONFIG" harvester source dsms http://dsms.stream-dataspace.net/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"text/turtle"}'
-  #fi
+  lines=`ckan -c "$CONFIG" harvester sources | grep nomad-lab.eu | wc -l`
+  lines=$(($lines + 1))
+  if [ $lines -lt 2 ]; then
+      ckan -c "$CONFIG" harvester source "nomad" "https://nomad-lab.eu/prod/rae/dcat/catalog/" dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}'
+      #ckan -c "$CONFIG" harvester source dsms https://dsms.stream-dataspace.net/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"text/turtle"}'
+  fi
 fi
 
 #Start services for harvesting
