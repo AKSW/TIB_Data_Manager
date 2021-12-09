@@ -39,9 +39,9 @@ ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports
 RUN ckan-pip install -r $CKAN_HOME/src/ckanext-qualityreports/requirements.txt
 
-ADD ./Plugins/ckanext-tags $CKAN_HOME/src/ckanext-tags
-RUN ckan-pip install -e $CKAN_HOME/src/ckanext-tags
-RUN ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
+#ADD ./Plugins/ckanext-tags $CKAN_HOME/src/ckanext-tags
+#RUN ckan-pip install -e $CKAN_HOME/src/ckanext-tags
+#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
 
 COPY ./docker/ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh
