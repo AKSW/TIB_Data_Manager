@@ -50,6 +50,9 @@ User accounts and admin accounts can be created with paster command.
 ```sh
 # Go inside the container
 $ docker exec -ti ckan /bin/bash
+```
+
+https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
 ### [CKAN] Rebuild index
 Rebuild the index to make search engine match the current dataset.
