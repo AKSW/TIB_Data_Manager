@@ -90,14 +90,14 @@ if [ ! -e "$CONFIG" ]; then
   # Rebuild index - should be removed for production
   #ckan -c "$CONFIG" search-index rebuild
 
-  # Configure harvester - first check if already there
-  ckan -c "$CONFIG" harvester sources
-  lines=`ckan -c "$CONFIG" harvester sources | grep nomad-lab.eu | wc -l`
-  lines=$(($lines + 1))
-  if [ $lines -lt 2 ]; then
-      ckan -c "$CONFIG" harvester source "nomad" "https://nomad-lab.eu/prod/rae/dcat/catalog/" dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}'
+  # Configure harvester - first check if already there <- does not work atm
+  #ckan -c "$CONFIG" harvester sources
+  #lines=`ckan -c "$CONFIG" harvester sources | grep nomad-lab.eu | wc -l`
+  #lines=$(($lines + 1))
+  #if [ $lines -lt 2 ]; then
+  #    ckan -c "$CONFIG" harvester source "nomad" "https://nomad-lab.eu/prod/rae/dcat/catalog/" dcat_rdf "NOMAD DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"application/rdf+xml"}'
       #ckan -c "$CONFIG" harvester source dsms https://dsms.stream-dataspace.net/catalog/ dcat_rdf "DSMS DCAT Interface" True tib-iasis MANUAL '{"rdf_format":"text/turtle"}'
-  fi
+  #fi
 fi
 
 #Start services for harvesting

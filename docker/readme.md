@@ -38,10 +38,9 @@ Please note that this also starts the aggregation of metadata into virtuoso via 
 
 ## Default credentials
 ```
-ckan = admin:admin
-db = ckan:ckan
+db = ckan:postgres
 ```
-Not sure anout ckan. You can create a new administrator account in the ckan container:
+You should create a new administrator account in the ckan container:
 https://docs.ckan.org/en/2.9/maintaining/getting-started.html#create-admin-user
 
 ## Useful Commands
