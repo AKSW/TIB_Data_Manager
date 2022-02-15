@@ -15,13 +15,13 @@ services:
     expose:
        - "5000"
     environment:
-       CKAN_DATASTORE_WRITE: "postgresql://ckan:ckan@postgresql:5432/datastore_default"
-       CKAN_DATASTORE_READ: "postgresql://datastore_default:datastore@postgresql:5432/datastore_default"
+       CKAN_DATASTORE_WRITE: "postgresql://ckan:postgres@postgresql:5432/datastore"
+       CKAN_DATASTORE_READ: "postgresql://datastore_ro:readforfun@postgresql:5432/datastore"
        CKAN_PUSHER_URL: "http://pusher:8800"
        CKAN_REDIS_URL: "redis://redis:6379/0"
        CKAN_SITE_URL: "https://${BASE_DOMAIN}"
        CKAN_SOLR_URL: "http://solr:8983/solr/ckan"
-       CKAN_SQLALCHEMY_URL: "postgresql://ckan:ckan@postgresql:5432/ckan"
+       CKAN_SQLALCHEMY_URL: "postgresql://ckan:postgres@postgresql:5432/ckan"
        CKAN_EXT_DATARETRIEVAL: "http://dataretrieval:8080"
        VIRTUAL_HOST: "${BASE_DOMAIN}"
        VIRTUAL_PORT: "5000"
