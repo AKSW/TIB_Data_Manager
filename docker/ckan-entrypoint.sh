@@ -4,6 +4,11 @@ set -e
 CONFIG="${CKAN_CONFIG}/ckan.ini"
 TIMER=5
 
+abort () {
+  echo "$@" >&2
+  exit 1
+}
+
 set_environment () {
   export CKAN_SITE_ID=${CKAN_SITE_ID}
   export CKAN_SITE_URL=${CKAN_SITE_URL}

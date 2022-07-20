@@ -18,6 +18,7 @@ services:
        CKAN_DATASTORE_WRITE: "postgresql://ckan:postgres@postgresql:5432/datastore"
        CKAN_DATASTORE_READ: "postgresql://datastore_ro:readforfun@postgresql:5432/datastore"
        CKAN_DATAPUSHER_URL: "http://pusher:8800"
+       CKAN_PUSHER_URL: "http://pusher:8800"
        CKAN_REDIS_URL: "redis://redis:6379/0"
        CKAN_SITE_URL: "http://${LOCAL_ADDRESS}:80"
        CKAN_SOLR_URL: "http://solr:8983/solr/ckan"
