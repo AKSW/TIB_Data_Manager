@@ -44,6 +44,8 @@ services:
     environment:
         POSTGRES_PASSWORD: "postgres"
         DS_RO_PASS: "readforfun"
+    volumes:
+      - postgresql:/var/lib/postgresql/data
   solr:
     build: ./solr/
     image: fhg/solr
@@ -171,3 +173,4 @@ networks:
 volumes:
   files: {}
   files2: {}
+  postgresql: {}
