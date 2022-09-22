@@ -30,18 +30,20 @@ RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dcat/requirements.txt
 ADD ./Plugins/ckanext-streamtheme $CKAN_HOME/src/ckanext-streamtheme
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-streamtheme
 
-# dataretrieval not needed at the moment
-#ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
-#RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
-#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
+# dataretrieval for workshop
+ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
+RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
+RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
 
-ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
-RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports
-RUN ckan-pip install -r $CKAN_HOME/src/ckanext-qualityreports/requirements.txt
+# Not ready
+#ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
+#RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports
+#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-qualityreports/requirements.txt
 
+# Not ready
 #ADD ./Plugins/ckanext-tags $CKAN_HOME/src/ckanext-tags
 #RUN ckan-pip install -e $CKAN_HOME/src/ckanext-tags
-#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
+#ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
 
 COPY ./docker/ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh
