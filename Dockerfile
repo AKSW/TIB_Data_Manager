@@ -35,15 +35,15 @@ ADD ./Plugins/ckanext-dataretrieval $CKAN_HOME/src/ckanext-dataretrieval
 RUN ckan-pip install -e $CKAN_HOME/src/ckanext-dataretrieval
 RUN ckan-pip install -r $CKAN_HOME/src/ckanext-dataretrieval/requirements.txt
 
-# Not ready
-#ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
-#RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports
-#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-qualityreports/requirements.txt
+#
+ADD ./Plugins/ckanext-qualityreports $CKAN_HOME/src/ckanext-qualityreports
+RUN ckan-pip install -e $CKAN_HOME/src/ckanext-qualityreports
+RUN ckan-pip install -r $CKAN_HOME/src/ckanext-qualityreports/requirements.txt
 
 # Not ready
 #ADD ./Plugins/ckanext-tags $CKAN_HOME/src/ckanext-tags
 #RUN ckan-pip install -e $CKAN_HOME/src/ckanext-tags
-#ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
+#RUN ckan-pip install -r $CKAN_HOME/src/ckanext-tags/requirements.txt
 
 COPY ./docker/ckan-entrypoint.sh /
 RUN chmod +x /ckan-entrypoint.sh
