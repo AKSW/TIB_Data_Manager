@@ -135,14 +135,15 @@ services:
     networks:
         - sparql
 
-  rdfunit:
+  maturitypipeline:
     build: ./data_validation_with_shacl/RDFUnit/
     expose:
        - "80"
     volumes:
         - ./data_validation_with_shacl/Jekyll-RDF/my_page2:/var/www/html/reports/
+        - /opt/webhook/pipe/host_executor_queue:/opt/webhook/pipe/host_executor_queue
     environment:
-        SPARQL_ENDPOINT: "https://sparql.${BASE_DOMAIN}/sparql"
+        SPARQL_ENDPOINT: "${SPARQL_ENDPOINT_DATA}"
         SPARQL_GRAPH_DATA: "http://test.de/"
         SPARQL_GRAPH_SHAPES: "http://test.de/shapes/"
         VIRTUAL_HOST: "webhook.${BASE_DOMAIN}"

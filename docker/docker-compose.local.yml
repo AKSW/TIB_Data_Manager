@@ -130,14 +130,15 @@ services:
     networks:
         - sparql
 
-  rdfunit:
+  maturitypipeline:
     build: ~/Documents/STREAM/2.2/data_validation_with_shacl/RDFUnit/
     ports:
        - "81:80"
     volumes:
-        - ~/Documents/STREAM/2.2/data_validation_with_shacl/Jekyll-RDF/my_page2:/var/www/html/reports/
+        - ./data_validation_with_shacl/Jekyll-RDF/my_page2:/var/www/html/reports/
+        - /opt/webhook/pipe/host_executor_queue:/opt/webhook/pipe/host_executor_queue
     environment:
-        SPARQL_ENDPOINT: "https://sparql.stream-dataspace.net/sparql"
+        SPARQL_ENDPOINT: "${SPARQL_ENDPOINT_DATA}"
         SPARQL_GRAPH_DATA: "http://test.de/"
         SPARQL_GRAPH_SHAPES: "http://test.de/shapes/"
     networks:
@@ -148,7 +149,7 @@ services:
      ports:
         - "82:4000"
      volumes:
-         - ~/Documents/STREAM/2.2/data_validation_with_shacl/Jekyll-RDF/my_page2:/srv/jekyll/my_page
+         - ./data_validation_with_shacl/Jekyll-RDF/my_page2:/srv/jekyll/my_page
      networks:
          - sub
 
