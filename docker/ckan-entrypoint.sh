@@ -48,7 +48,8 @@ write_config () {
      "smtp.mail_from = admin@datahub.com" \
      "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view   STREAMtheme" \
      "ckan.datapusher.formats = csv xls xlsx tsv application/csv application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
-     "ckan.max_resource_size = 104857600"
+     "ckan.max_resource_size = 104857600" \
+     "ckan.cors.origin_allow_all = True"
 }
 
 # Get or create CKAN_SQLALCHEMY_URL
@@ -84,7 +85,7 @@ if [ ! -e "$CONFIG" ]; then
 
   # Enable Plugins: harvest and dcat
   ckan -c "$CONFIG" config-tool "$CONFIG" -e \
-     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view   harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval qualityreports"
+     "ckan.plugins = stats text_view image_view recline_view resource_proxy datastore datapusher webpage_view   harvest ckan_harvester dcat dcat_json_interface dcat_rdf_harvester dcat_json_harvester structured_data STREAMtheme dataretrieval tags qualityreports"
   ckan -c "$CONFIG" harvester initdb
   ckan -c "$CONFIG" config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.type = redis"
   ckan -c "$CONFIG" config-tool "$CONFIG" -s "app:main" "ckan.harvest.mq.hostname = redis"

@@ -4,7 +4,7 @@
 [submodule "Plugins/ckanext-dcat"]
 	path = Plugins/ckanext-dcat
 	url = https://github.com/stream-project/ckanext-dcat.git
-	
+
 [submodule "Plugins/ckanext-dataretrieval"]
 	path = Plugins/ckanext-dataretrieval
 	url = https://github.com/stream-project/ckanext-dataretrieval.git
@@ -23,3 +23,6 @@
 [submodule "docker/data_validation_with_shacl"]
 	path = docker/data_validation_with_shacl
 	url = https://github.com/stream-project/data_validation_with_shacl.git
+[submodule "Plugins/ckanext-tags"]
+	path = Plugins/ckanext-tags
+	url = https://github.com:stream-project/ckanext-tags.git
