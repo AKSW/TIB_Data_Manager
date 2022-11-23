@@ -153,6 +153,17 @@ services:
      networks:
          - sub
 
+  taxonomygui:
+    build: ./taxonomy-service-gui/
+    ports:
+      - "8081:8080"
+    environment:
+      VUE_APP_BASE_URI_TAGS: "http://stream-ontology.com/tags/"
+      VUE_APP_CKAN_PORTALS: "https://stream-dataspace.net"
+    networks:
+      - sparql
+      - sub
+
 
 networks:
     db:

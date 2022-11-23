@@ -164,6 +164,19 @@ services:
      networks:
          - sub
 
+  taxonomygui:
+    build: ./taxonomy-service-gui/
+    expose:
+      - "8080"
+    environment:
+      VUE_APP_BASE_URI_TAGS: "http://stream-ontology.com/tags/"
+      VUE_APP_CKAN_PORTALS: "https://stream-dataspace.net"
+      VIRTUAL_HOST: "tags.${BASE_DOMAIN}"
+      VIRTUAL_PORT: "8080"
+      LETSENCRYPT_HOST: "tags.${BASE_DOMAIN}"
+    networks:
+      - sub
+
 networks:
     db:
     sparql:
