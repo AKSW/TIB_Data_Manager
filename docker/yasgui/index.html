@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css" rel="stylesheet" integrity="sha384-D/7uAka7uwterkSxa2LwZR7RJqH2X6jfmhkJ0vFPGUtPyBMF2WMq9S+f9Ik5jJu1" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css" />
+
+    <!-- YASGUI stuff -->
+    <link href="https://unpkg.com/@triply/yasgui/build/yasgui.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
+
+    <title>STREAM - SPARQL with Yasgui</title>
+
+    <style>
+      .yasgui .autocompleteWrapper {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand  navbar-dark bg-dark">
+        <a class="navbar-brand display-1 mr-auto" href="#">STREAM - the SPARQL GUI for RDF data of NOMAD and DSMS datasets.</a>
+        <span class="navbar-text" style="margin-right:100px;">
+        <a href="?lang=en">en</a>
+          </span>
+      </nav>
+    </header>
+
+    The SPARQL query and its results in the table below are the RDF triples STREAM provides for the dataset you visited on <i>stream-dataspace.net</i>
+    <br />
+
+    <div id="yasgui"></div>
+
+    <footer id="footer" style="margin-top:30px; text-align: center;">
+        The SPARQL tool is <a href="https://github.com/TriplyDB/Yasgui" target="_blank">Yasgui</a>
+        &nbsp;|&nbsp;
+        This is just a simple demonstration.
+        <br />
+        <br />
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+      function my() {
+        //http://yasgui.stream-dataspace.net/?repo=Nomad&id=vkLcAXfqRuudsz_saIVgJA%2F--GrKp_O8U9KfYZGcwZCbqUBMwSA is an example of a call
+        //http://yasgui.stream-dataspace.net/?repo=Dsms&id=ARI_Al25_S2_Z is another
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let identifier = decodeURIComponent(urlParams.get('id'));
+        const repo = urlParams.get('repo');
+        var url = "http://vm188067-l3s.hosting.uni-hannover.de:7200/repositories/"+repo;
+        console.log(identifier, repo, url);
+        query = "Select * where { ?s ?p ?o .} limit 100";
+
+        if (urlParams.get('repo') === "Nomad") {
+          let upload_id = identifier.split("/")[0];
+          let entry_id = identifier.split("/")[1];
+          query = `
+            PREFIX nomad: <http://https://nomad-coe.eu/ontology#>
+            select ?s ?p ?o where {
+            ?s a  <http://www.w3.org/ns/sosa/Sample> ;
+                 nomad:has_upload_id "${upload_id}" ;
+                 nomad:has_calc_id "${entry_id}" ;
+                 ?p ?o .
+            } limit 100
+
+          `;
+        }
+        else {
+          query = `
+            PREFIX stream: <http://stream-ontology.com/matvoc-core/>
+            PREFIX emmo: <http://https://nomad-coe.eu/ontology#>
+            PREFIX mech: <>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+            select * where {
+              select ?tensile_strength ?material_name where {
+
+                ?tensile_strength_instance rdf:type mech:EMMO_926d14c7_4f78_4c37_99b4_dfb0a531db64;
+                    emmo:EMMO_8ef3cd6d_ae58_4a8d_9fc0_ad8f49015cd0 ?value_instance.
+                ?value_instance emmo:EMMO_faf79f53_749d_40b2_807c_d34244c192f4 ?tensile_strength .
+
+                ?measurement_instance stream:EMMO_b2ee8543_b055_4fac_a422_905f993d223e  ?tensile_strength_instance ;
+                    emmo:EMMO_36e69413_8c59_4799_946c_10b05d266e22 ?specimen_instance .
+
+                ?specimen_instance emmo:EMMO_e1097637_70d2_4895_973f_2396f04fa204 ?material_name_instance .
+
+                ?material_name_instance rdf:type mech:EMMO_71200c24_44fe_4533_96be_55ecb299681c ;
+                    emmo:EMMO_23b579e1_8088_45b5_9975_064014026c42 ?material_name .
+
+                FILTER(?material_name = "${identifier}")
+
+
+              }
+            }
+            ORDER BY DESC(?tensile_strength)
+            limit 1
+          `;
+        }
+
+        const yasgui = new Yasgui(document.getElementById("yasgui"), {
+          requestConfig: { endpoint: url },
+          copyEndpointOnNewTab: true,
+        });
+
+        let yasqe = yasgui.getTab().yasqe;
+        yasqe.setValue(query);
+        yasqe.query({
+          url: url,
+          reqMethod: "POST"
+        });
+      }
+
+      window.onload = my;
+    </script>
+  </body>
+</html>

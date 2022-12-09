@@ -29,3 +29,6 @@
 [submodule "docker/taxonomy-service-gui"]
 	path = docker/taxonomy-service-gui
 	url = https://github.com/stream-project/taxonomy-service-gui.git
+[submodule "docker/Sparnatural"]
+	path = docker/Sparnatural
+	url = https://github.com/stream-project/Sparnatural.git
