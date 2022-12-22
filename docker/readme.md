@@ -13,8 +13,9 @@ The other images get pulled from docker hub or the github registry or are build 
 
 ## Docker-compose environment
 * BASE_DOMAIN needs to be set to the correct domain, which is used by ckan and a sparql.BASE_DOMAIN subdomain is then used for virtusoso
-* VIRTUOSO_USER and VIRTUOSO_PASSWORD are for the virtusoso credentials
-* GIT_REPO, GIT_EMAIL, GIT_NAME, CRON_JOB and GRAPH_URI are used in the import container
+* *VIRTUOSO_USER* and *VIRTUOSO_PASSWORD* are for the virtusoso credentials
+* *GIT_REPO, GIT_EMAIL, GIT_NAME, CRON_JOB* and *GRAPH_URI* are used in the import container, see *virtuoso-import-docker* folder
+* *SPARQL_ENDPOINT_DATA* is for the maturitypipeline and should be the same as sparql.BASE_DOMAIN
 
 ### HTTPS
 The docker-compose file was created to be used with the JWilder nginx container and a lets encrypt companion.

@@ -2,6 +2,8 @@
 
 There are also plugins still in here which are not used anymore. They will be removed in the future.
 
+Each Plugin has a Github repository and included as a git module.
+
 ## dataretrieval
 
 This a a basic extension to show a link at the end of each dataset. The link opens a new tab with a SPARQL interface to retrieve the RDF data.
